@@ -48,6 +48,12 @@
             transform: scale(1.1);
             border-color: #1e3a8a;
         }
+                /* Efeito de marca d'água suave */
+        .watermark-hero {
+            opacity: 0.08;
+            filter: grayscale(1) brightness(2);
+            pointer-events: none;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -97,6 +103,11 @@
                                 <i data-lucide="shopping-cart" class="w-5 h-5"></i> Página do Autor
                             </a>
                         </div>
+                    </div>
+
+                                       <!-- Watermark Image -->
+                    <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 lg:translate-x-0 w-[300px] md:w-[500px] lg:w-[600px] z-0 watermark-hero">
+                        <img src="./favicon.png" alt="Ráyeland Watermark" class="w-full h-auto">
                     </div>
                 </div>
                 <!-- Abstract Background Element -->
