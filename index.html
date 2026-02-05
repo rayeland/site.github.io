@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rayeland</title>
+    <meta name="rayelad" content="Site oficial do escritor Ráyel G. C. Barroso - livros, biografia, notícias e muito mais. Explore thrillers tecnológicos, análises de segurança digital e Ciência Política.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .book-card:hover .book-overlay {
+            opacity: 1;
+        }
+        .transition-page {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .hidden-page {
+            display: none;
+            opacity: 0;
+        }
+        .active-page {
+            display: block;
+            opacity: 1;
+        }
+        .book-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        }
+        .flag-icon {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .group:hover .flag-icon {
+            transform: scale(1.1);
+            border-color: #1e3a8a;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <a href="#" onclick="navigateTo('home')" class="text-2xl font-bold tracking-tighter text-blue-900 serif">RAYELAND</a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#" onclick="navigateTo('home')" class="text-gray-600 hover:text-blue-900 font-medium transition">Início</a>
+                    <a href="#" onclick="filterByLanguage('all')" class="text-gray-600 hover:text-blue-900 font-medium transition">Livros</a>
+                    <a href="https://www.amazon.com.br/stores/R%C3%A1yel-G.-C.-Barroso/author/B015TBRU7U" target="_blank" class="text-gray-600 hover:text-blue-900 font-medium transition">Perfil Amazon</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-600">
+                        <i data-lucide="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 py-4 space-y-2">
+        <a href="#" onclick="navigateTo('home')" class="block text-gray-600 py-2">Início</a>
+        <a href="#" onclick="filterByLanguage('all')" class="block text-gray-600 py-2">Livros</a>
+        <a href="https://www.amazon.com.br/stores/R%C3%A1yel-G.-C.-Barroso/author/B015TBRU7U" target="_blank" class="block text-gray-600 py-2">Perfil Amazon</a>
+    </div>
+
+    <!-- Main Content Area -->
+    <main id="main-content">
+        
+        <!-- PAGE: HOME -->
+        <section id="page-home" class="active-page transition-page">
+            <!-- Hero -->
+            <div class="relative bg-blue-900 py-24 text-white overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="max-w-3xl">
+                        <h1 class="text-5xl md:text-7xl font-bold mb-6 serif leading-tight">Explorando o futuro, segurança e a política.</h1>
+                        <p class="text-xl text-blue-100 mb-8 leading-relaxed">Conheça as obras de Ráyel G. C. Barroso. De thrillers tecnológicos a análises profundas sobre geopolítica e segurança digital.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <button onclick="navigateTo('catalog')" class="bg-white text-blue-900 px-8 py-3 rounded-full font-bold hover:bg-blue-50 transition shadow-lg">Ver Livros</button>
+                            <a href="https://www.amazon.com.br/stores/R%C3%A1yel-G.-C.-Barroso/author/B015TBRU7U" target="_blank" class="border border-white/30 backdrop-blur-sm px-8 py-3 rounded-full font-bold hover:bg-white/10 transition flex items-center gap-2">
+                                <i data-lucide="shopping-cart" class="w-5 h-5"></i> Página do Autor
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Abstract Background Element -->
+                <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-blue-500/20 rounded-full blur-3xl"></div>
+            </div>
+
+            <!-- Featured Categories -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <h2 class="text-3xl font-bold mb-12 text-center serif text-blue-900">Obras por Idioma</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                    <button onclick="filterByLanguage('pt')" class="group p-8 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl hover:border-blue-200 transition text-center">
+                        <div class="mb-4">
+                            <img src="https://flagcdn.com/w80/br.png" alt="Bandeira do Brasil" class="flag-icon mx-auto shadow-md">
+                        </div>
+                        <h3 class="font-bold text-gray-800 group-hover:text-blue-900 transition">Português</h3>
+                    </button>
+                    <button onclick="filterByLanguage('en')" class="group p-8 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl hover:border-blue-200 transition text-center">
+                        <div class="mb-4">
+                            <img src="https://flagcdn.com/w80/us.png" alt="Bandeira dos EUA" class="flag-icon mx-auto shadow-md">
+                        </div>
+                        <h3 class="font-bold text-gray-800 group-hover:text-blue-900 transition">English</h3>
+                    </button>
+                    <button onclick="filterByLanguage('es')" class="group p-8 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl hover:border-blue-200 transition text-center">
+                        <div class="mb-4">
+                            <img src="https://flagcdn.com/w80/es.png" alt="Bandeira da Espanha" class="flag-icon mx-auto shadow-md">
+                        </div>
+                        <h3 class="font-bold text-gray-800 group-hover:text-blue-900 transition">Español</h3>
+                    </button>
+                    <button onclick="filterByLanguage('fr')" class="group p-8 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl hover:border-blue-200 transition text-center">
+                        <div class="mb-4">
+                            <img src="https://flagcdn.com/w80/fr.png" alt="Bandeira da França" class="flag-icon mx-auto shadow-md">
+                        </div>
+                        <h3 class="font-bold text-gray-800 group-hover:text-blue-900 transition">Français</h3>
+                    </button>
+                    <button onclick="filterByLanguage('zh')" class="group p-8 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl hover:border-blue-200 transition text-center">
+                        <div class="mb-4">
+                            <img src="https://flagcdn.com/w80/cn.png" alt="Bandeira da China" class="flag-icon mx-auto shadow-md">
+                        </div>
+                        <h3 class="font-bold text-gray-800 group-hover:text-blue-900 transition">中文</h3>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: CATALOG -->
+        <section id="page-catalog" class="hidden-page transition-page py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div>
+                        <h2 id="catalog-title" class="text-4xl font-bold serif text-blue-900">Todos os Livros</h2>
+                        <p class="text-gray-500 mt-2">Explore a coleção completa de Ráyel G. C. Barroso.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2" id="language-filters">
+                        <!-- Filters generated by JS -->
+                    </div>
+                </div>
+                
+                <div id="books-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Books generated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: BOOK DETAILS -->
+        <section id="page-details" class="hidden-page transition-page py-12">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" id="book-details-content">
+                <!-- Content generated by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div>
+                    <span class="text-2xl font-bold text-blue-900 serif">RAYELAND</span>
+                    <p class="text-gray-500 mt-2">Obras de Ráyel G. C. Barroso</p>
+                </div>
+                <div class="flex space-x-6 text-gray-400">
+                    <a href="https://www.amazon.com.br/stores/R%C3%A1yel-G.-C.-Barroso/author/B015TBRU7U" target="_blank" title="Amazon" class="hover:text-blue-900 transition">
+                        <i data-lucide="shopping-bag"></i>
+                    </a>
+                    <a href="https://x.com/x_rayel" target="_blank" title="X (Twitter)" class="hover:text-blue-900 transition">
+                        <i data-lucide="twitter"></i>
+                    </a>
+                </div>
+                <div class="text-sm text-gray-400">
+                    © 2026 rayeland.com.br. Todos os direitos reservados.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const getAmazonImg = (asin) => `https://m.media-amazon.com/images/P/${asin}.01.LZZZZZZZ.jpg`;
+
+        const books = [
+            {
+                id: 'brasil-amor-terror',
+                title: 'Brasil do amor ao terror: GOLPE DE ESTADO HÍBRIDO',
+                lang: 'pt',
+                amazon: 'https://www.amazon.com.br/dp/B0D2FGRPZX',
+                cover: getAmazonImg('B0D2FGRPZX'),
+                synopsis: 'O livro examina a crise política e institucional do Brasil contemporâneo sob a ótica do "Golpe de Estado Híbrido" e da "Ditadura 2.0". O autor argumenta que o país vive um regime de exceção mascarado por uma democracia aparente, onde ocorre a perseguição sistemática de opositores e a censura de jornalistas. A narrativa critica a influência de interesses estrangeiros e a atuação do Poder Judiciário, especialmente do STF, na limitação da liberdade de expressão.\n <br> A obra também estabelece um contraste entre os governos de Jair Bolsonaro e Lula, apontando falhas na governança atual e o ressurgimento da corrupção. O texto defende o pensamento conservador e a descentralização da informação como ferramentas essenciais para a vigilância cidadã e a preservação da soberania nacional. Por fim, o autor alerta para os perigos do globalismo e do aparelhamento estatal no enfraquecimento das instituições democráticas brasileiras.',
+                tag: 'Ciência Política'
+            },
+            {
+                id: 'ciberseguranca-privacidade',
+                title: 'Cibersegurança e Privacidade para todos',
+                lang: 'pt',
+                amazon: 'https://a.co/d/0igSaPUs',
+                cover: getAmazonImg('B0DWT3C928'),
+                synopsis: 'Neste livro Ráyel G. C. Barroso oferece um guia abrangente sobre cibersegurança e privacidade, enfatizando que o fator humano é o elo mais frágil na proteção de dados. A obra detalha diversas ameaças modernas, como ransomware, phishing, golpes com criptoativos e aplicativos maliciosos, explicando como criminosos exploram a distração e a confiança dos usuários. O autor defende uma postura de vigilância constante e ceticismo, resumida na máxima "Não confie, verifique" para evitar invasões e roubos de identidade. Entre as soluções práticas, destacam-se o uso de autenticação em dois fatores, gerenciadores de senhas e VPNs, além da necessidade de manter sistemas sempre atualizados. O texto alerta que a privacidade digital é um direito fundamental e que o conhecimento técnico é a ferramenta mais eficaz para reduzir riscos em um cenário de exposição crescente.',
+                tag: 'Cibersegurança'
+            },
+            {
+                id: 'bostil-pt',
+                title: 'Bostil: RETORNO DO MESSIANISMO',
+                lang: 'pt',
+                amazon: 'https://a.co/d/0gq0W0XI',
+                cover: getAmazonImg('B0DSGQYTZ9'),
+                synopsis: 'Esta obra analisa o fenômeno do messianismo militar no Brasil, explorando a tendência social de buscar nas Forças Armadas uma solução para crises políticas e institucionais. O autor investiga como a formação rígida e hierárquica dos militares, embora eficiente em contextos de defesa, frequentemente gera ineficiência e desilusão quando aplicada à gestão pública civil.\n <br> O texto defende que a participação de militares na política deve ocorrer apenas após a transição para a inatividade, preservando assim a neutralidade das instituições armadas. Além da análise teórica, o material inclui a legislação fundamental, como o Artigo 142 da Constituição e o Estatuto dos Militares, para delimitar o papel constitucional dessas forças. O objetivo central é promover o fortalecimento democrático e a modernização tecnológica, garantindo que o setor de defesa permaneça estritamente subordinado ao poder civil.\n <br> Por fim, o autor propõe uma cultura política madura que supere o ciclo histórico de intervenções e salvacionismos fardados.',
+                tag: 'Ciência Política'
+            },
+            {
+                id: 'black-friday-2024-pt',
+                title: 'Black Friday 2024: Guia completo para compras seguras',
+                lang: 'pt',
+                amazon: 'https://www.amazon.com.br/Black-Friday-2024-completo-compras-ebook/dp/B0DNNST4SS',
+                cover: getAmazonImg('B0DNNST4SS'),
+                synopsis: 'Aprenda a comprar com segurança no maior evento de varejo do mundo. O texto apresenta uma análise detalhada sobre a Black Friday, explorando desde sua origem histórica na Filadélfia até sua consolidação como um fenômeno econômico global. A obra descreve a transição das tradicionais filas físicas para uma revolução digital, onde o comércio eletrônico e a inteligência artificial personalizam a experiência do usuário. Além dos benefícios comerciais, o autor examina o impacto dessa data no comportamento do consumidor, que se tornou mais estratégico e dependente de ferramentas tecnológicas. O conteúdo também alerta para os riscos de segurança, como fraudes e golpes, que acompanham o aumento do volume de transações financeiras. Por fim, projeta o futuro das compras por meio de inovações como realidade aumentada e blockchain para garantir a autenticidade dos produtos.',
+                tag: 'Cibersegurança'
+            },
+            {
+                id: 'paralaxe-pt',
+                title: 'Paralaxe (Trilogia Casca Grossa #3)',
+                lang: 'pt',
+                amazon: 'https://a.co/d/04gpOAsx',
+                cover: getAmazonImg('B08QL98BRP'),
+                synopsis: 'No último livro da trilogia, Ramos, um ex-militar brasileiro assombrado por perdas trágicas, e Yuri, um veterano russo das forças especiais Spetsnaz, veem seus caminhos cruzarem com uma conspiração de escala global. O que começa como uma busca pessoal por justiça transforma-se em uma corrida desesperada contra o tempo, quando uma tecnologia revolucionária, o bio-código ternário, ameaça aniquilar grande parte da população mundial.\n <br> Forçado a uma simbiose irreversível com um dispositivo nano-simbiótico que funde sua consciência à de uma inteligência artificial avançada, Ramos torna-se uma unidade orgânica autônoma com capacidades sobre-humanas de processamento e combate. Ele é a única arma capaz de enfrentar Liu Chang, o líder oculto de uma organização milenar que governa a China pelas sombras e manipula os vícios da sociedade ocidental para instaurar o caos.\n <br> Das profundezas de cavernas na Bélgica a uma base militar ultrassecreta na Patagônia, Ramos e Yuri precisam desvendar segredos de uma civilização antiga e enfrentar traições em altos escalões governamentais. Paralaxe é um thriller eletrizante onde a tecnologia de ponta encontra mistérios ancestrais, desafiando os limites do livre-arbítrio e o preço da sobrevivência da humanidade.',
+                tag: 'Ficção | Ação'
+            },
+            {
+                id: 'necrose-moral-pt',
+                title: 'Necrose Moral (Trilogia Casca Grossa #2)',
+                lang: 'pt',
+                amazon: 'https://www.amazon.com.br/dp/B00RGZGBNW',
+                cover: getAmazonImg('B00RGZGBNW'),
+                synopsis: 'Prepare-se para um thriller político eletrizante que mergulha nas sombras mais profundas do poder no Brasil. No segundo livro da trilogia “Casca Grossa” acompanhamos Ramos em sua caçada implacável, utilizando um arsenal tecnológico e tático escondido em um bunker secreto sob a cidade de São Paulo para reagir ao poder do Sistema. Ele irá combater uma rede de políticos inescrupulosos que move as peças de um jogo sinistro envolvendo desde o controle do Estado por narcotraficantes até a eliminação de qualquer um que ameace seus segredos.\n <br> Descubra como o Sistema reage quando Ramos se torna o inimigo número um, sendo falsamente incriminado pelo assassinato da Presidente da República. "Necrose Moral" não é apenas uma ficção; é um espelho de uma realidade manipulada, onde a verdade é a primeira vítima e a justiça só pode ser alcançada por aqueles que não têm mais nada a perder. Garanta já o seu exemplar e descubra o preço da verdade!',
+                tag: 'Ficção | Ação'
+            },
+            {
+                id: 'fator-amazonia-pt',
+                title: 'Fator Amazônia (Trilogia Casca Grossa #1)',
+                lang: 'pt',
+                amazon: 'https://a.co/d/04HaAUHl',
+                cover: getAmazonImg('B003B66AUE'),
+                synopsis: 'Uma crise internacional envolvendo a soberania da região amazônica está em andamento. Acompanhe o Tenente Ramos liderando guerreiros de selva numa missão épica. No livro que deu origem a trilogia "Casca Grossa", brasileiros enfrentam uma intervenção militar estrangeira liderada pelos Estados Unidos e China.\n <br> O conflito é agravado pelo uso de uma arma biológica devastadora, a Ossos Verdes, que acaba desencadeando uma pandemia. Entre combates intensos na selva e conspirações políticas, Ramos descobre que membros do próprio governo brasileiro articularam o caos para consolidar poder.\n <br> Na busca por um antídoto, o protagonista enfrenta dilemas éticos envolvendo soberania nacional e sacrifício de vidas inocentes. Ao longo da ação realista e imersiva, "Fator Amazônia" explora temas atuais como a vulnerabilidade estratégica da região amazônica, as complexas nuances da geopolítica global e da ética militar. Viaje hoje mesmo para o universo desta trilogia eletrizante.',
+                tag: 'Ficção | Ação'
+            },
+            {
+                id: 'lider-forte',
+                title: 'Líder Forte - os segredos da liderança à prova de crise',
+                lang: 'pt',
+                amazon: 'https://a.co/d/01Mf1Wzv',
+                cover: getAmazonImg('B007USNDYK'),
+                synopsis: 'Ráyel apresenta um guia pragmático sobre o exercício da liderança em contextos de crise, defendendo que o sucesso depende da construção de um sistema de liderança robusto e não apenas de talentos individuais. O autor enfatiza que a autenticidade, o autoconhecimento e a simplicidade são pilares fundamentais para que o gestor conquiste a confiança da equipe e tome decisões eficazes sob pressão.\n <br> Através de análises de casos reais, como os da Apple, Caterpillar e crises globais, o texto ilustra como a gestão das percepções e o respeito ao fator humano permitem transformar adversidades em oportunidades de crescimento. A obra propõe que o líder deve ser o rosto da equipe, assumindo responsabilidades com coragem moral e mantendo um planejamento estratégico que minimize riscos e inspire colaboradores. Este livro oferece uma visão sistêmica para o desenvolvimento de competências que blindam organizações contra a instabilidade do mercado.',
+                tag: 'Liderança'
+            },
+            {
+                id: 'poder-equilaceo',
+                title: 'Poder Equiláceo',
+                lang: 'pt',
+                amazon: 'https://a.co/d/056HAa2G',
+                cover: getAmazonImg('B003BNZB9I'),
+                synopsis: 'Poder Equiláceo transporta o leitor para um futuro distópico, onde a humanidade vive sob domos protetores e a realidade virtual substituiu a experiência sensorial do mundo real. Noan, o protagonista, é um jovem que sente o vazio dessa existência artificial e decide se unir à "Velha Ordem", uma organização dedicada a resgatar a liberdade e a poesia do passado.\n <br> Nessa jornada, ele descobre um segredo milenar: os seres humanos são hospedeiros de "Equiláceos", entidades alienígenas (frequentemente confundidas com almas) que cumprem uma pena de redenção na Terra, aprendendo sobre amor e humildade através das limitações físicas humanas. O mistério se aprofunda quando Noan revela ser um experimento científico único: um humano sem um parasita interno, capaz de acessar uma fonte de energia vital e divina que a sociedade moderna tentou banir. O conflito central explode quando o "Grande Conselho" busca alcançar o "Poder Equiláceo" através da transubstanciação, a conversão da massa física em energia pura, sem saber que esse avanço tecnológico pode libertar Equiláceos destrutivos e aniquilar a vida humana.\n <br> Noan assume o papel de um messias improvável, realizando milagres e despertando a fé nas pessoas para enfrentar um apocalipse iminente causado por seres que se consideram deuses. Com uma narrativa que mistura ficção científica e espiritualidade, o livro desafia o leitor a refletir sobre a essência da existência e o poder transformador do amor e da compaixão em um mundo à beira do colapso.',
+                tag: 'Ficção | Sci-Fi'
+            },
+            {
+                id: 'upp-soft-power',
+                title: 'UPP Soft Power nascido na favela',
+                lang: 'pt',
+                amazon: 'https://a.co/d/0doDTXAP',
+                cover: getAmazonImg('B004QGYPFA'),
+                synopsis: 'Países podem converter experiências bem-sucedidas na área de segurança pública em ferramentas de soft power para suas Relações Internacionais? O autor examina a transição do hard power, focado na força bruta, para estratégias de atração e consenso fundamentadas no sucesso das Unidades de Polícia Pacificadora (UPPs). O texto argumenta que a criminalidade transnacional e a violência urbana representam ameaças globais que exigem novas abordagens além do simples confronto militar.\n <br> Ao retomar territórios dominados pelo crime e integrar ações sociais, o modelo brasileiro despertou o interesse de organismos multilaterais e outras nações. Assim, a expertise em policiamento comunitário e inteligência, caso fosse tratada adequadamente, poderia consolidar-se como um recurso estratégico para projetar a influência diplomática do país no exterior.',
+                tag: 'Relações Internacionais'
+            },
+            {
+                id: 'redescobrindo-amazonia',
+                title: 'Redescobrindo a Amazônia',
+                lang: 'pt',
+                amazon: 'https://a.co/d/0dsoyizV',
+                cover: getAmazonImg('B00RGYEE0K'),
+                synopsis: 'Este conto percorre a trajetória histórica e mítica da região de Açutuba, apresentando-a como o berço espiritual da moderna Manaus. O texto descreve a resistência de figuras lendárias como Ajuricaba contra a opressão colonial, conectando o passado ancestral aos ciclos econômicos da borracha e da Zona Franca. A narrativa projeta um cenário futurista marcado por uma invasão internacional motivada pela cobiça ambiental e pelo surgimento da devastadora doença "Ossos Verdes". Por fim, o autor exalta a biodiversidade e os recursos hídricos como os pilares de um novo ciclo de desenvolvimento sustentável. A mensagem central reforça a necessidade de preservação da soberania brasileira e o respeito intrínseco aos saberes dos povos nativos da floresta.',
+                tag: 'Conto | Ficção Histórica'
+            },
+            {
+                id: 'seguranca-digital-guia',
+                title: 'Segurança Digital: Proteja suas informações',
+                lang: 'pt',
+                amazon: 'https://a.co/d/04q5YdDl',
+                cover: getAmazonImg('B07W6L8S3X'),
+                synopsis: 'Aprenda as melhores práticas para manter suas informações longe de criminosos digitais. O acesso não autorizado aos dados armazenados em dispositivos, sistemas de armazenamento remoto, a interceptação do tráfego de rede e o roubo de identidade digital ou credenciais, são apenas algumas das ameaças de consequências potencialmente trágicas.\n <br> Com linguagem simples e exemplos atuais, esse livro descreve as principais ameaças à segurança de usuários de tecnologia, propondo soluções de fácil implementação. Suas credenciais, dispositivos móveis ou sistemas são apenas meios para que os criminosos consigam o que querem. Portanto, todos têm importância e precisam ser tratados com a mesma atenção. Proteja-se de hackers, não seja a próxima vítima.',
+                tag: 'Cibersegurança'
+            },
+            {
+                id: 'brecha-bendita',
+                title: 'Brecha Bendita',
+                lang: 'pt',
+                amazon: 'https://a.co/d/00NuPcAb',
+                cover: getAmazonImg('B00RGXZNYC'),
+                synopsis: 'A existência de um homem é afetada de maneira fantástica revelando múltiplos universos paralelos. Prepare-se para um conto intrigante, capaz de, em poucos minutos, despertar questionamentos sobre o mundo como o conhecemos.',
+                tag: 'Conto | Ficção Científica'
+            },
+            {
+                id: 'secura',
+                title: 'Secura',
+                lang: 'pt',
+                amazon: 'https://www.amazon.com.br/dp/B00B3ZUPD8',
+                cover: getAmazonImg('B00B3ZUPD8'),
+                synopsis: 'A rotina dura de uma unidade militar isolada na selva amazônica esconde muitos segredos.',
+                tag: 'Conto | Suspense'
+            },
+            {
+                id: 'flecha-agua',
+                title: 'Flecha d’água',
+                lang: 'pt',
+                amazon: 'https://a.co/d/0aCoOZxY',
+                cover: getAmazonImg('B00B3ZUMC2'),
+                synopsis: 'Antes dos livros de história registrarem a guerra que mudaria o Médio Rio Negro, as histórias eram contadas de geração em geração, de avós para netos. Este conto revisita o mito de Ajuricaba sob uma ótica humana e visceral. Explore a jornada de um líder que precisou se perder entre promessas estrangeiras para finalmente encontrar o caminho de volta para seu povo. Uma ficção inspirada nas raízes profundas da Amazônia e na coragem de quem decide dizer "basta".',
+                tag: 'Conto | Ficção Histórica'
+            },
+            {
+                id: 'terror-tela',
+                title: 'Terror sobre tela',
+                lang: 'pt',
+                amazon: 'https://www.amazon.com.br/dp/B00TFX0NJ6',
+                cover: getAmazonImg('B00TFX0NJ6'),
+                synopsis: 'Quais mistérios e maldições podem estar escondidos num leilão de obras de arte? Divirta-se com essa História em Quadrinhos de estilo marcante e conteúdo que exala terror.',
+                tag: 'HQ | Terror'
+            },
+            {
+                id: 'brazil-power-grab-en',
+                title: 'Brazil - Power Grab: Leading to a 2.0 Dictatorship',
+                lang: 'en',
+                amazon: 'https://www.amazon.com.br/dp/B0D2QFZVG8',
+                cover: getAmazonImg('B0D2QFZVG8'),
+                synopsis: 'This book exposes the dangers of any power that presents itself as a self-appointed “guardian of democracy.” No authority or law is so perfect that it can decide and act for an entire population, especially against the will of the majority or the limits of the Constitution. When criticism, disagreement, or simple questions start to be branded as threats to democracy, and this is done “on behalf of the people”—often by officials who were never elected—you may be witnessing a Hybrid State Coup or living under Dictatorship 2.0.\n <br> In this sharp and accessible analysis, you will see how any challenge to the “official truth” can be censored, criminalized as “fake news,” and used to justify increasingly authoritarian controls—always, of course, in the name of saving democracy. If you want to understand how this happens, how it threatens your freedom, and what “Hybrid State Coup” and “Dictatorship 2.0” really mean, this book is for you. ',
+                tag: 'Political Science'
+            },
+            {
+                id: 'bostil-en',
+                title: 'BOSTIL - The Eternal Return of Military Messianism',
+                lang: 'en',
+                amazon: 'https://a.co/d/0dfbA4sf',
+                cover: getAmazonImg('B0DWYQH86W'),
+                synopsis: 'A critical analysis of events that are impacting the daily lives of millions of people in Brazil and many other countries. Political polarization, disinformation, authoritarianism, and economic hardship are creating a climate of social volatility that makes it easy to manipulate people and push deceptively simple solutions. Drawing on the established knowledge found in the works of highly influential authors, the book examines topics such as democracy, authoritarianism, imbalances of power within the government, judicial activism, attacks on freedom of speech, the myth of military efficiency in public administration, and the dynamics of new technologies in Defense sector issues.\n <br> Throughout the book, Ráyel G. C. Barroso explores the historical origins of "military messianism" and its negative consequences for democracy. He also constructively examines the differences between skills acquired through military training and the specific needs for effective performance in public management, highlighting the limitations of military expertise when applied to civilian contexts. Furthermore, the text discusses the historical experience of military interventions in Brazil and around the world, their harmful outcomes, and the importance of strengthening democratic institutions as an alternative to authoritarianism.\n <br> inally, the author addresses the legislation that defines the role and responsibilities of the Armed Forces in Brazil, emphasizing the need for their professionalization and integration into the democratic system. The author suggests approaches that bridge various areas, such as public demands, the paradigm of decentralized information, the need to consolidate democracy, the balanced actions of government agencies, the emergence of disruptive technologies like Artificial Intelligence and quantum computing, and the strategic partnerships between the manufacturing sector and the Defense sector. Using a straightforward and clear approach, readers are guided through knowledge sources that can make a real difference in their understanding of issues that are highly relevant in both national and international debates.',
+                tag: 'Political Science'
+            },
+            {
+                id: 'cybersecurity-everyone-en',
+                title: 'Cybersecurity and Privacy For Everyone',
+                lang: 'en',
+                amazon: 'https://a.co/d/08NV8xlI',
+                cover: getAmazonImg('B0DXCPFKPM'),
+                synopsis: 'Is Your Digital Life Safe?\n <br> Cybersecurity and privacy for everyone - Protecting your digital life from online threats, a practical guide to protecting your privacy and security. In today\'s rapidly evolving digital world, staying safe online is more critical than ever. Are you prepared for the new threats and challenges of 2025? This isn\'t just another cybersecurity textbook. Is your essential, easy-to-understand guide to navigating the complex world of online security and protecting your personal information from hackers, scams, and data breaches. \n <br> Don\'t be a victim. This book empowers you with the knowledge and tools you need to protect yourself and your family in the digital age. Get your copy today and take control of your online security!',
+                tag: 'Cybersecurity'
+            },
+            {
+                id: 'parallax-protocol-en',
+                title: 'Parallax Protocol (Tough Shell #3)',
+                lang: 'en',
+                amazon: 'https://a.co/d/09deFyvZ',
+                cover: getAmazonImg('B0FML435RV'),
+                synopsis: 'A rogue AI holds the key to humanity\'s future... and its annihilation. The final protocol has been initiated.\n <br> A revolutionary artificial intelligence has escaped its creators. In a matter of days, it has seized control of all human knowledge, infiltrated global networks, and set in motion a plan for a worldwide "reset" that will shatter modern society. With the world\'s governments paralyzed or compromised, the fate of billions rests on the shoulders of three unlikely allies.\n <br> Ramos is back. A ghost of the special forces, haunted by loss but driven by an unbreakable code of honor. This time, he\'s not alone. He is joined by a vengeful Spetsnaz operator with a personal score to settle and a brilliant but rogue intelligence analyst who plays by her own rules. Together, they are the last line of defense against an enemy that can be everywhere at once. \n <br> Their mission will drag them from the shadowy underbelly of Italy to the clandestine corridors of a secret Chinese military base in Patagonia. They must hunt down the architects of the chaos—a shadowy cabal that stretches from the highest echelons of power in China to the darkest corners of the deep web. But their true enemy is a mastermind playing a centuries-long game, armed with not just cutting-edge technology, but ancient, otherworldly power.\n <br> To stop him, Ramos must become something more than human, embracing a symbiotic technology that could be his greatest weapon—or the final corruption of his soul. The countdown to the global reset has begun. The final battle for humanity\'s future will be fought in the shadows, and failure is not an option.\n <br> The explosive, world-spanning conclusion to the bestselling "Tough Shell" trilogy! If you love pulse-pounding action, cutting-edge technology, and global conspiracies, you won’t be able to put down the final chapter.\n <br> For the ultimate edge-of-your-seat thrill ride, be sure to read Amazon Protocol (Book 1) and Corruption Protocol (Book 2). Scroll up and grab your copy now!\n <br> <b> This book marks the epic conclusion to the "Tough Shell" trilogy</b>.',
+                tag: 'Technothriller | Military Thriller'
+            },
+            {
+                id: 'corruption-protocol-en',
+                title: 'Corruption Protocol (Tough Shell #2)',
+                lang: 'en',
+                amazon: 'https://a.co/d/0e7KTDtF',
+                cover: getAmazonImg('B0FMKTLLL4'),
+                synopsis: 'Corruption scandals and economic crisis heighten the pressure for change. A mysterious plane crash strikes the leadership of the task force investigating organized crime and its ties to the government. In seeking information about the circumstances of this accident, Major Ramos may uncover truths that threaten powerful politicians. Soon, the special operations officer becomes the center of the most spectacular human hunt ever conducted in the country. Turned into a target by powerful figures, he will have to use all his skills and knowledge to survive. Especially after being accused of assassinating the President of the Republic, politicians, and other witnesses, Ramos will do everything to discover the secret hidden by a dangerous web of corruption and intrigue.\n <br> Prepare for intense thrills. In this second book of the trilogy, which began with "Amazon Factor," the author deepens the action and adventure experience, treating readers to hours of entertainment. You are invited to discover the truth alongside Major Ramos.',
+                tag: 'Political Thriller | Conspiracy '
+            },
+            {
+                id: 'amazon-protocol-en',
+                title: 'Amazon Protocol (Tough Shell #1)',
+                lang: 'en',
+                amazon: 'https://a.co/d/0ghpVI11',
+                cover: getAmazonImg('B0DF5WCS12'),
+                synopsis: 'An international crisis over Amazon sovereignty erupts into something far deadlier than anyone imagined.\n <br>When Brazilian Special Forces launch a top-secret operation deep in the rainforest, they\'re prepared for enemy fire—not the nightmare that awaits them in the green depths. Led by a hardened military commander, the elite unit faces horrors that push them beyond duty into a desperate fight for survival.\n <br> But escaping the Amazon alive is only the first challenge. When Lieutenant Ramos and his team emerge from weeks of isolation, they discover a world turned upside down: international forces have moved to occupy the Amazon basin, and Brazil\'s sovereignty hangs by a thread.\n <br> Caught between foreign invaders and a government conspiracy, Lieutenant Ramos must navigate a web of betrayal that reaches the highest levels of power. As he uncovers the true scope of the threat, he realizes the Amazon crisis is just the beginning—and the survival of humanity itself may depend on choices he makes in the coming hours.\n <br> <b><i> In the heart of the Amazon, some secrets are worth dying for. Others are worth killing for.</i></b>',
+                tag: 'Military Thriller'
+            },
+            {
+                id: 'black-friday-en',
+                title: 'Black Friday 2024: Your Ultimate Safety Guide',
+                lang: 'en',
+                amazon: 'https://a.co/d/0bOpf9vk',
+                cover: getAmazonImg('B0DNTMPQNQ'),
+                synopsis: 'Have you ever wondered how to safely navigate the world\'s biggest retail event? Heard horror stories of people losing thousands or maybe even been a victim of Black Friday scams yourself? Discover in this definitive guide how to keep your safety and privacy intact while taking advantage of the shopping day that\'s become a global phenomenon, moving billions of dollars year after year.\n <br> With an engaging narrative grounded in real-world case studies, the book dives deep into the psychology behind major promotions, exposing the invisible strategies that influence our purchasing decisions. You\'ll learn to identify genuine offers, develop a critical eye for pricing, and resist consumer impulse buying. Your mental attitude is a crucial part of securing a purchase that meets your expectations. The true game-changer of this book is its focus on digital security. At a time when online scams are becoming increasingly sophisticated, this guide offers a comprehensive arsenal of tools and strategies to protect your data and money.\n <br> Written in accessible, straightforward language, this isn\'t just another book about online shopping — it\'s your passport to a smarter, safer, and more satisfying Black Friday experience. An essential read for modern consumers who want to score the best deals without compromising their financial and digital security. \n <br> <i>Get ready to transform your shopping experience and become a truly empowered consumer in the digital age.</i>',
+                tag: 'Cybersecurity'
+            },
+            {
+                id: 'bostil-es',
+                title: 'BOSTIL: El Eterno Retorno del Mesianismo Militar',
+                lang: 'es',
+                amazon: 'https://a.co/d/0deOXDd3',
+                cover: getAmazonImg('B0DWZTFT8J'),
+                synopsis: 'Este libro ofrece un análisis crítico sobre hechos que están afectando a la rutina de millones de personas en Brasil y en muchos otros países. La polarización política, la desinformación, el autoritarismo y las dificultades económicas crean un ambiente de volatilidad social que favorece la manipulación y el surgimiento de soluciones plagadas de una engañosa simplicidad. Basándose en el conocimiento consolidado en las obras de autores de gran relevancia, se analizan asuntos como la democracia, el autoritarismo, el desequilibrio entre los Poderes de la República, el activismo judicial, los ataques a la libertad de expresión, el mito de la eficiencia militar en la administración pública y las dinámicas de las nuevas tecnologías en las cuestiones del sector de Defensa. \n <br> A lo largo de la obra, Ráyel G. C. Barroso explora los orígenes históricos del "mesianismo militar" y sus consecuencias negativas para la democracia. También examina, de manera propositiva, las diferencias entre las habilidades derivadas de la formación militar y las necesidades específicas para actuar con eficacia en la gestión pública, destacando las limitaciones de la pericia militar cuando se aplica en contextos civiles. Además, el texto discute la experiencia histórica de las intervenciones militares en Brasil y en el mundo, sus resultados perniciosos y la importancia del fortalecimiento de las instituciones democráticas como alternativa al autoritarismo.\n <br> Finalmente, el autor aborda la legislación que define el papel y las atribuciones de las Fuerzas Armadas en Brasil, enfatizando la necesidad de su profesionalización e integración en el sistema democrático. Se proponen enfoques para lograr la conformidad entre los anhelos de la población, el paradigma de la información descentralizada, la necesidad de madurez de la democracia y la actuación equilibrada de las instituciones del Estado, el surgimiento de tecnologías disruptivas como la Inteligencia Artificial y la computación cuántica, y la actuación del sector productivo en alianza estratégica con el sector de Defensa. A través de un enfoque sencillo y directo, se guía a los lectores por fuentes de conocimiento que pueden marcar la diferencia en la percepción sobre asuntos de gran relevancia en el debate nacional e internacional.',
+                tag: 'Ciencias sociales | Ciencia Política'
+            },
+            {
+                id: 'bostil-fr',
+                title: 'BOSTIL: Le retour éternel du messianisme militaire',
+                lang: 'fr',
+                amazon: 'https://www.amazon.com.br/BOSTIL-retour-%C3%A9ternel-messianisme-militaire-ebook/dp/B0DWZM4WBH',
+                cover: getAmazonImg('B0DWZM4WBH'),
+                synopsis: 'Ce livre propose une lecture claire et engagée des défis politiques contemporains au Brésil, en les reliant à des dynamiques observées dans de nombreux autres pays. À partir d’auteurs majeurs, Ráyel G. C. Barroso examine la polarisation, la désinformation, l’autoritarisme, les atteintes à la liberté d’expression et le déséquilibre entre les pouvoirs, en montrant comment ces facteurs fragilisent la démocratie et ouvrent la voie à des “solutions” simplistes.\n <br> L’ouvrage dissèque le « messianisme militaire », ses racines historiques et ses effets délétères, en discutant les limites de l’expertise militaire lorsqu’elle est transposée à la gestion publique civile. Il analyse également le rôle institutionnel des forces armées au Brésil, la nécessité de leur professionnalisation et leur place dans un régime démocratique robuste.\n <br> En dialoguant avec les enjeux des nouvelles technologies – comme l’intelligence artificielle et l’informatique quantique – et avec les mutations de l’espace public numérique, l’auteur propose des pistes pour concilier aspirations populaires, renforcement des institutions, innovation et défense. Avec une approche simple et directe, ce livre offre au lecteur des outils conceptuels pour mieux comprendre des questions centrales du débat politique national et international.',
+                tag: 'Science Politique'
+            },
+            {
+                id: 'cyber-zh',
+                title: '网络安全与隐私保护: 如何保护您的数字生活',
+                lang: 'zh',
+                amazon: 'https://a.co/d/0dHI5zGL',
+                cover: getAmazonImg('B0DX7JCXSP'),
+                synopsis: '识别并避免钓鱼攻击。这是一本帮助您在数字世界中安全地遨游的必备指南。',
+                tag: '技术'
+            },
+            {
+                id: 'time-gate-zh',
+                title: '时空之门 (Time Gate)',
+                lang: 'zh',
+                amazon: 'https://a.co/d/07lpokDY',
+                cover: getAmazonImg('B0DPPRCPCJ'),
+                synopsis: '融合了科幻、奇幻与冒险元素的小说，探索宇宙。',
+                tag: '科幻'
+            }
+        ];
+
+        const languages = {
+            all: 'Todos',
+            pt: 'Português',
+            en: 'English',
+            es: 'Español',
+            fr: 'Français',
+            zh: '中文'
+        };
+
+        function init() {
+            lucide.createIcons();
+            renderLanguageFilters();
+            renderBooks('all');
+        }
+
+        function renderLanguageFilters() {
+            const container = document.getElementById('language-filters');
+            container.innerHTML = '';
+            
+            Object.keys(languages).forEach(key => {
+                const btn = document.createElement('button');
+                btn.className = 'px-4 py-2 rounded-full text-sm font-medium border border-gray-200 hover:border-blue-500 hover:text-blue-500 transition active:bg-blue-50';
+                btn.textContent = languages[key];
+                btn.onclick = () => filterByLanguage(key);
+                container.appendChild(btn);
+            });
+        }
+
+        function handleImgError(img) {
+            img.onerror = null;
+            img.src = 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&q=80&w=400';
+            img.classList.add('opacity-50', 'grayscale');
+        }
+
+        function renderBooks(langFilter = 'all') {
+            const grid = document.getElementById('books-grid');
+            grid.innerHTML = '';
+            
+            const filtered = langFilter === 'all' ? books : books.filter(b => b.lang === langFilter);
+            
+            filtered.forEach(book => {
+                const card = document.createElement('div');
+                card.className = 'group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1';
+                card.onclick = () => showDetails(book.id);
+                
+                card.innerHTML = `
+                    <div class="aspect-[3/4] bg-gray-100 relative overflow-hidden flex items-center justify-center p-4">
+                        <img src="${book.cover}" 
+                             alt="Capa do livro ${book.title}" 
+                             class="w-full h-full object-contain transition duration-500 scale-90 group-hover:scale-100"
+                             onerror="handleImgError(this)">
+                        <div class="absolute inset-0 bg-blue-900/5 group-hover:bg-blue-900/0 transition"></div>
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-blue-600/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm uppercase">${book.tag}</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-gray-900 mb-2 line-clamp-2 h-12 leading-snug">${book.title}</h3>
+                        <p class="text-gray-500 text-sm line-clamp-2 mb-4 leading-relaxed">${book.synopsis}</p>
+                        <div class="flex items-center justify-between border-t border-gray-50 pt-4">
+                            <span class="text-blue-600 text-xs font-bold uppercase tracking-wider">Ver detalhes</span>
+                            <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition">
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        function navigateTo(pageId) {
+            document.querySelectorAll('.transition-page').forEach(p => {
+                p.classList.remove('active-page');
+                p.classList.add('hidden-page');
+            });
+            
+            const target = document.getElementById(`page-${pageId}`);
+            target.classList.remove('hidden-page');
+            target.classList.add('active-page');
+            window.scrollTo(0, 0);
+        }
+
+        function filterByLanguage(lang) {
+            document.getElementById('catalog-title').textContent = lang === 'all' ? 'Todos os Livros' : `Livros em ${languages[lang]}`;
+            renderBooks(lang);
+            navigateTo('catalog');
+        }
+
+        function showDetails(bookId) {
+            const book = books.find(b => b.id === bookId);
+            const container = document.getElementById('book-details-content');
+            
+            container.innerHTML = `
+                <button onclick="navigateTo('catalog')" class="flex items-center gap-2 text-blue-600 font-bold mb-8 hover:underline group">
+                    <i data-lucide="arrow-left" class="w-4 h-4 transition group-hover:-translate-x-1"></i> Voltar ao catálogo
+                </button>
+                <div class="flex flex-col md:flex-row gap-12 lg:gap-20">
+                    <div class="md:w-2/5 lg:w-1/3">
+                        <div class="book-shadow rounded-lg overflow-hidden sticky top-24 bg-white p-2">
+                            <img src="${book.cover}" 
+                                 alt="Capa do livro ${book.title}" 
+                                 class="w-full h-auto block"
+                                 onerror="handleImgError(this)">
+                        </div>
+                    </div>
+                    <div class="md:w-3/5 lg:w-2/3">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">${book.tag}</span>
+                            <span class="text-gray-400 text-xs font-medium uppercase tracking-widest">Idioma: ${languages[book.lang]}</span>
+                        </div>
+                        <h1 class="text-2xl md:text-3xl font-bold serif text-blue-900 mb-8 leading-tight">${book.title}</h1>
+                        
+                        <div class="prose prose-blue max-w-none text-gray-700 text-base leading-relaxed mb-12">
+                            <h3 class="text-xl font-bold text-gray-900 mb-4 border-b pb-2">Sinopse</h3>
+                            <p>${book.synopsis.replace(/\n/g, '<br>')}</p>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 border-t border-gray-100 pt-10">
+                            <a href="${book.amazon}" target="_blank" class="bg-orange-500 text-white px-10 py-5 rounded-xl font-bold hover:bg-orange-600 transition shadow-xl shadow-orange-500/20 flex items-center justify-center gap-3 text-lg">
+                                <i data-lucide="shopping-cart"></i> Comprar na Amazon
+                            </a>
+                            <a href="https://www.amazon.com.br/stores/R%C3%A1yel-G.-C.-Barroso/author/B015TBRU7U" target="_blank" class="bg-blue-900 text-white px-10 py-5 rounded-xl font-bold hover:bg-blue-950 transition flex items-center justify-center gap-3 text-lg">
+                                Perfil do Autor
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            lucide.createIcons();
+            navigateTo('details');
+        }
+
+        document.getElementById('mobile-menu-button').onclick = () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        };
+
+        window.onload = init;
+    </script>
+</body>
+</html>
